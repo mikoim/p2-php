@@ -335,7 +335,7 @@ if (!$_conf['ktai'] || $_conf['iphone']) {
         $confirmNanashi = ( (strpos($_st->setting_array['BBS_NONAME_NAME'], "fusianasan") !== false));
 
         // –¼–³‚µ‚Å‘‚¯‚È‚¢
-        $blockNanashi = ($_st->setting_array['BBS_NANASHI_CHECK'] == '1' || $_st->setting_array['NANASHI_CHECK'] == '1');
+        $blockNanashi = ((array_key_exists('BBS_NANASHI_CHECK', $_st->setting_array) && $_st->setting_array['BBS_NANASHI_CHECK'] == '1') || (array_key_exists('NANASHI_CHECK', $_st->setting_array) && $_st->setting_array['NANASHI_CHECK'] == '1'));
 
         unset($_st);
 

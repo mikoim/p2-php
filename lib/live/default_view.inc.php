@@ -27,7 +27,7 @@
         }
 
 // ƒŒƒXƒ{ƒ^ƒ“
-if ($_GET['live']) {
+if (array_key_exists('live', $_GET) && $_GET['live']) {
 	$tores .= "$res_button";
 }
 

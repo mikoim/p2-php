@@ -26,7 +26,7 @@ if ($this->thread->onthefly) {
 } elseif ($i == $this->thread->readnum +1) {
 	$GLOBALS['newres_to_show_flag'] = true;
 	// 番号 (新着レス時 先頭)
-	if ($_GET['live']) {
+	if (array_key_exists('live', $_GET) && $_GET['live']) {
 		$tores .= "{$live_newline}{$live_td}{$live_newnum}";
 	} else {
 		$tores .= "{$live_oldline}{$live_td}{$live_newnum}";
@@ -65,7 +65,7 @@ $tores .= "</td>";
 // 仕切 & レスボタン
 $stall_05 = "<td width=\"5px\"  style=\"border-left: {$STYLE['live_b_s']};\">&nbsp;</td>";
 $stall_30 = "<td width=\"32px\" style=\"border-left: {$STYLE['live_b_s']};\">&nbsp;{$res_button}</td>";
-if ($_GET['live']) {
+if (array_key_exists('live', $_GET) && $_GET['live']) {
 	$tores .= "$stall_30";
 } else {
 	$tores .= "$stall_05";

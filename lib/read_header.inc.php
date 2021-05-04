@@ -105,7 +105,7 @@ $read_navi_next = "<a href=\"{$_conf['read_php']}?{$host_bbs_key_q}&amp;ls={$aTh
 
 if ($aThread->resrange['to'] == $aThread->rescount) {
 	// +live リンク切替
-	if ($_GET['live']) {
+	if (array_key_exists('live', $_GET) && $_GET['live']) {
 		$read_footer_navi_new = "<a href=\"javascript:getIndex('./read.php?{$host_bbs_key_q}&live=1');\" accesskey=\"r\">{$shinchaku_st}</a>";
 	} else {
     $read_footer_navi_new = "<a href=\"{$_conf['read_php']}?{$host_bbs_key_q}&amp;ls={$aThread->rescount}-&amp;nt={$newtime}#r{$aThread->rescount}\" accesskey=\"r\">{$shinchaku_st}</a>";
@@ -328,7 +328,7 @@ if (empty($_GET['one'])) {
 }
 
 // +live ページ読込時スクリプト
-if ($_GET['live']) {
+if (array_key_exists('live', $_GET) && $_GET['live']) {
 	$onload_script .= "startlive();";
 	$onUnload_script = "onUnload=\"stoplive();\"";
 } else {
@@ -472,7 +472,7 @@ EOP;
 }
 
 // +live 実況フレーム 2ペインで開く
-if ($_GET['live']) {
+if (array_key_exists('live', $_GET) && $_GET['live']) {
 $htm['p2frame'] = <<<live
 <script type="text/javascript">
 //<![CDATA[

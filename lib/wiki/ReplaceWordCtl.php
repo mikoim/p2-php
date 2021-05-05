@@ -47,11 +47,10 @@ class ReplaceWordCtl
     }
 
     // ファイルを読み込む
-    public function loadFile($cont)
+    public function loadFile($cont): void
     {
         global $_conf;
 
-        $lines = array();
         $path = $_conf['pref_dir'].'/'.$this->filename($cont);
         $this->data_nocache[$cont] = false;
         if ($lines = @file($path)) {
@@ -82,7 +81,6 @@ class ReplaceWordCtl
                 }
             }
         }
-        return $this->data[$cont];
     }
 
     // ファイルを保存

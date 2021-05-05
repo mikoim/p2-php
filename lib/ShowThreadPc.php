@@ -1379,7 +1379,7 @@ EOJS;
 
         $url = $purl[0];
         $replaced = $replaceImageUrlCtl->replaceImageUrl($url);
-        if (!$replaced[0]) {
+        if (count($replaced) === 0) {
             return false;
         }
 

@@ -84,6 +84,8 @@ if ($_conf['wiki.samba_timer']) {
     require_once P2_LIB_DIR . '/wiki/Samba.php';
     $samba = new Samba();
     $htm['samba'] .= $samba->createTimer($samba->getSamba($host, $bbs));
+} else {
+    $htm['samba'] = '';
 }
 
 // ‰º‘‚«•Û‘¶

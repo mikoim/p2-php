@@ -160,7 +160,7 @@ if ($_conf['ktai']) {
     $before_respointer = $_conf['mobile.before_respointer'];
 } else {
 	// +live レス表示数切替
-	if ($_GET['live']) {
+	if (array_key_exists('live', $_GET) && $_GET['live']) {
 		$before_respointer = $_conf['live.before_respointer'];
 	} else {
     $before_respointer = $_conf['before_respointer'];
@@ -196,7 +196,7 @@ if ($aThread->isKitoku()) {
 } else {
     if (!$aThread->ls) {
 		// +live レス表示数切替
-		if ($_GET['live']) {
+		if (array_key_exists('live', $_GET) && $_GET['live']) {
 			$aThread->ls = 'l' .$_conf['live.before_respointer'];
 		} else {
         $aThread->ls = $_conf['get_new_res_l'];
@@ -281,7 +281,7 @@ if ($_conf['ktai']) {
 } else {
 
 	// +live ヘッダ切替
-	if ($_GET['live']) {
+	if (array_key_exists('live', $_GET) && $_GET['live']) {
 		P2Util::header_content_type();
 	} else {
     // ヘッダ 表示
@@ -301,7 +301,7 @@ if ($_conf['ktai']) {
 
         echo "<p><b id=\"filterstart\">{$all}レス中 <span id=\"searching\">n</span>レスがヒット</b></p>\n";
     }
-    if ($_GET['showbl']) {
+    if (array_key_exists('showbl', $_GET) && $_GET['showbl']) {
         echo  '<p><b>' . p2h($aThread->resrange['start']) . 'へのレス</b></p>';
     }
 
@@ -317,7 +317,7 @@ if ($_conf['ktai']) {
 
         $res1 = $aShowThread->quoteOne(); // >>1ポップアップ用
 
-        if ($_GET['showbl']) {
+        if (array_key_exists('showbl', $_GET) && $_GET['showbl']) {
             $mainhtml = $aShowThread->getDatToHtml_resFrom();
         } else {
             $mainhtml .= $aShowThread->getDatToHtml();
@@ -414,7 +414,7 @@ EOP;
     }
 
 	// +live フッタ切替
-	if ($_GET['live']) {
+	if (array_key_exists('live', $_GET) && $_GET['live']) {
 		echo <<<LIVE
 		<link rel="stylesheet" href="css.php?css=style&amp;skin={$skin_en}" type="text/css">
 		<link rel="stylesheet" href="css.php?css=read&amp;skin={$skin_en}" type="text/css">

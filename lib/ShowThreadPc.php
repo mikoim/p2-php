@@ -48,7 +48,7 @@ class ShowThreadPc extends ShowThread
         );
 
 		// +live (live.bbs_noname) —p
-		if ($_GET['live']) {
+		if (array_key_exists('live', $_GET) && $_GET['live']) {
 			if (empty($_conf['live.bbs_noname'])) {
 				require_once P2_LIB_DIR . '/SettingTxt.php';
 				$st = new SettingTxt($this->thread->host, $this->thread->bbs);
@@ -1379,7 +1379,7 @@ EOJS;
 
         $url = $purl[0];
         $replaced = $replaceImageUrlCtl->replaceImageUrl($url);
-        if (!$replaced[0]) {
+        if (count($replaced) === 0) {
             return false;
         }
 

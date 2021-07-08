@@ -38,7 +38,6 @@ class ReplaceImageUrlCtl extends WikiPluginCtlBase
     {
         global $_conf;
 
-        $lines = array();
         $path = $_conf['pref_dir'].'/'.$this->filename;
         if ($lines = @file($path)) {
             foreach ($lines as $l) {
@@ -52,17 +51,13 @@ class ReplaceImageUrlCtl extends WikiPluginCtlBase
                     continue;
                 }
                 $ar = array(
-                    'match'   => $lar[0], // 対象文字列
+                    'match' => $lar[0], // 対象文字列
                     'replace' => $lar[1], // 置換文字列
-                    'referer' => $lar[2], // リファラ
-                    'extract' => $lar[3], // EXTRACT
-                    'source'  => $lar[4], // EXTRACT正規表現
-                    'recheck'  => $lar[5], // EXTRACTしたページを次回もチェックしたいか
-                    'ident'  => $lar[6],    // 置換結果の画像URLに対する正規
-                                            // 表現。指定されている場合はこれ
-                                            // でマッチした文字列で前回キャッ
-                                            // シュと比較し、同一であれば同じ
-                                            // 画像と見做す
+                    'referer' => count($lar) > 2 ? $lar[2] : '', // リファラ
+                    'extract' => count($lar) > 3 ? $lar[3] : '', // EXTRACT
+                    'source' => count($lar) > 4 ? $lar[4] : '', // EXTRACT正規表現
+                    'recheck' => count($lar) > 5 ? $lar[5] : '', // EXTRACTしたページを次回もチェックしたいか
+                    'ident' => count($lar) > 6 ? $lar[6] : '',    // 置換結果の画像URLに対する正規表現。指定されている場合はこれでマッチした文字列で前回キャッシュと比較し、同一であれば同じ画像と見做す
                 );
 
                 $this->data[] = $ar;
@@ -180,7 +175,7 @@ class ReplaceImageUrlCtl extends WikiPluginCtlBase
             return $this->onlineCache[$url];
         }
 
-        if ($this->cacheData[$url]) {
+        if (array_key_exists($url, $this->cacheData)) {
             if ($_conf['wiki.replaceimageurl.extract_cache'] == 1) {
                 // キャッシュがあればそれを返す
                 return $this->_reply($url, $this->cacheData[$url]['data']);
@@ -225,7 +220,7 @@ class ReplaceImageUrlCtl extends WikiPluginCtlBase
         }
         /* plugin_imageCache2で処理させるためコメントアウト ← plugin_imageCache2を削除する為復活 by 2ch774*/
         // ヒットしなかった場合
-        if (!$return[0]) {
+        if (count($return) === 0) {
             // 画像っぽいURLの場合
             if (preg_match('{^https?://.+?\\.(jpe?g|gif|png)$}i', $url)) {
                 $return[0]['url']     = $url;

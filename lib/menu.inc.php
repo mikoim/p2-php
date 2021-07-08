@@ -288,7 +288,7 @@ echo <<<EOP
 EOP;
 
 // ■新着数を表示する場合
-if ($_conf['enable_menu_new'] == 1 && $_GET['new']) {
+if ($_conf['enable_menu_new'] == 1 && array_key_exists('new', $_GET) && $_GET['new']) {
     // 並列ダウンロードの設定
     if ($_conf['expack.use_curl_multi'] != 0 || $_conf['expack.use_pecl_http'] != 0) {
         if ($_conf['expack.use_pecl_http'] == 1) {

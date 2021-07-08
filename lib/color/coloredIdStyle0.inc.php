@@ -109,13 +109,11 @@ function coloredIdStyle0($id, $count)
     }
 
     // CSSで色をつける
-    $idstr2=preg_split('/:/',$idstr,2); // コロンでID文字列を分割
-    $idstr2[0].=':';
     $uline=$STYLE['a_underline_none']==1 ? '' : "text-decoration:underline;";
     $bcolor=array();
     $LCh=array();
     for ($i=0;$i<count($rgb);$i++) {
-        if ($rgb['type']=='L*C*h') {
+        if (array_key_exists('type', $rgb) && $rgb['type']==='L*C*h') {
             $LCh[$i]=$color_param[$i];
         } else {
             $LCh[$i]=RGB2LCh($rgb[$i]);
@@ -126,7 +124,6 @@ function coloredIdStyle0($id, $count)
         }
         $colorcode=$rgb[$i]['color'];
         $bcolor[$i]="background-color:{$colorcode};";
-        //    $border="border-width:thin;border-style:solid;";
 
         if      ($LCh[$i][0]>60) {$bcolor[$i].="color:#000;";}
         else //if ($LCh[$i][0]<40)
@@ -137,8 +134,7 @@ function coloredIdStyle0($id, $count)
         $uline.="text-decoration:blink;";
     }
 
-    //       $colorprint=1;      // 1にすると、色の変換結果が表示される
-    if ($colorprint) {
+    if ($_conf['coloredid.debug']) {
         $debug = '';
         for ($i=0;$i<1;$i++) {
             switch ($rgb[$i]['type']) {
@@ -167,15 +163,14 @@ function coloredIdStyle0($id, $count)
             if ($B>255 || $B<0) {$B="<span style=\"color:#F00\">{$B}</span>";}
             $debug.= ",(R={$R},G={$G},B={$B}),{$rgb[$i]['color']}";
         }
-        //  $idstr2[1].= join(",",$rgb[0]);
         return array(
-            (isset($rgb[1]) ? "{$bcolor[1]}{$border}{$uline}" : ''),
-            "{$bcolor[0]}{$border}{$uline}",
+            (isset($rgb[1]) ? "{$bcolor[1]}{$uline}" : ''),
+            "{$bcolor[0]}{$uline}",
             $debug);
     } else {
         return array(
-            (isset($rgb[1]) ? "{$bcolor[1]}{$border}{$uline}" : ''),
-            "{$bcolor[0]}{$border}{$uline}");
+            (isset($rgb[1]) ? "{$bcolor[1]}{$uline}" : ''),
+            "{$bcolor[0]}{$uline}");
     }
 }
 

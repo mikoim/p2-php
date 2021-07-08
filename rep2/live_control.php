@@ -5,7 +5,7 @@
 
 require_once __DIR__ . '/../init.php';
 
-if ($_GET['live']) {
+if (array_key_exists('live', $_GET) && $_GET['live']) {
 	$load_control = "liveon()";
 } else {
 	$load_control = "liveoff()";

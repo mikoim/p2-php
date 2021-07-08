@@ -317,6 +317,9 @@ $conf_user_def['backlink_coloring_track_colors'] = '#479e01,#0033ff,#0099cc,#990
 // IDに色を付ける
 $conf_user_def['coloredid.enable'] = 1;
 $conf_user_rad['coloredid.enable'] = array('1' => 'する', '0' => 'しない');
+// 色の変換結果を表示
+$conf_user_def['coloredid.debug'] = 0;
+$conf_user_rad['coloredid.debug'] = array('1' => 'する', '0' => 'しない');
 // 画面表示時にIDに着色しておく条件
 $conf_user_def['coloredid.rate.type'] = 3;
 $conf_user_rad['coloredid.rate.type'] = array('0' => 'しない', '1' => '出現数', '2' => 'スレ内トップ10', '3' => 'スレ内平均以上');

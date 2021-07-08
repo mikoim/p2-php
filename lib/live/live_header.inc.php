@@ -20,7 +20,7 @@
 	}
 //}
 
-if ($_GET['live']) {
+if (array_key_exists('live', $_GET) && $_GET['live']) {
 	echo <<<xmht
 	<script type="text/javascript">
 	<!--

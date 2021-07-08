@@ -22,7 +22,7 @@ if ($_conf['live.id_b']) {
 }
 // 日付の短縮
 if (preg_match("([0-2][0-9]{3}/[0-1][0-9]/[0-3][0-9])", $date_id)) {
-	if ($_GET['live']) { // 実況中は日付を全削除
+	if (array_key_exists('live', $_GET) && $_GET['live']) { // 実況中は日付を全削除
 		$date_id = preg_replace("([0-2][0-9]{3}/[0-1][0-9]/[0-3][0-9]\(..\))", "", $date_id);
 	} else { // 上記以外は年を下2桁に
 		if (preg_match("(class=\"ngword)", $date_id)) { // NGIDの時
@@ -37,7 +37,7 @@ if (preg_match("([0-2][0-9]{3}/[0-1][0-9]/[0-3][0-9])", $date_id)) {
 if ($mail) {
 	// 実況中の場合
 	if ($_conf['live.mail_sage'] 
-	&& ($_GET['live'])) {
+	&& (array_key_exists('live', $_GET) && $_GET['live'])) {
 		// sage を ▼ に
 		if (preg_match("(^[\\s　]*sage[\\s　]*$)", $mail)) {
 			if ($STYLE['read_mail_sage_color']) {
@@ -63,7 +63,7 @@ if ($mail) {
 }
 
 // [これにレス] の方法
-if ($_GET['live']) {
+if (array_key_exists('live', $_GET) && $_GET['live']) {
     $res_dblclc = "";
 	$ttitle_en_q ="&amp;ttitle_en=".UrlSafeBase64::encode($this->thread->ttitle);
 	// 内容をダブルクリック
@@ -84,7 +84,7 @@ if ($_GET['live']) {
 
 // 実況中の表示切詰め処理
 if ($_conf['live.msg']
-&& ($_GET['live'])) {
+&& (array_key_exists('live', $_GET) && $_GET['live'])) {
 	$msg = mb_convert_kana($msg, 'rnas');								// 全角の英数、記号、スペースを半角に
 	if (!preg_match ("(tp:/|ps:/|res/)", $msg)) {
 		$msg = mb_ereg_replace("([\\s　]*<br>[\\s　]*)", " ", $msg);	// 全改行を消去し半角スペースに。内容に外部リンクや板別勢い一覧を含む場合は対象外
@@ -93,7 +93,7 @@ if ($_conf['live.msg']
 }
 
 // +live スレッド内容表示切替
-if ($_GET['live']) {
+if (array_key_exists('live', $_GET) && $_GET['live']) {
 	if ($_conf['live.view_type'] == 0 ) {
 		include P2_LIB_DIR . '/live/default_view.inc.php';
 	} else {
